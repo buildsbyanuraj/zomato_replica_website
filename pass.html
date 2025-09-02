@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Strength Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+      width: 350px;
+      text-align: center;
+    }
+    input[type="password"], input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    .toggle {
+      cursor: pointer;
+      color: #007bff;
+      font-size: 14px;
+      margin-left: -40px;
+    }
+    .strength {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    ul {
+      text-align: left;
+      margin-top: 10px;
+      padding-left: 20px;
+      font-size: 14px;
+    }
+    ul li {
+      margin-bottom: 5px;
+    }
+    .valid {
+      color: green;
+    }
+    .invalid {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Password Strength Checker</h2>
+    <div>
+      <input type="password" id="password" placeholder="Enter password">
+      <span class="toggle" onclick="togglePassword()">👁️</span>
+    </div>
+    <div class="strength" id="strengthMsg">Enter a password</div>
+    <ul id="requirements">
+      <li id="length" class="invalid">At least 8 characters</li>
+      <li id="lower" class="invalid">Contains lowercase letter</li>
+      <li id="upper" class="invalid">Contains uppercase letter</li>
+      <li id="number" class="invalid">Contains a number</li>
+      <li id="special" class="invalid">Contains a special character</li>
+    </ul>
+  </div>
+
+  <script>
+    const password = document.getElementById("password");
+    const strengthMsg = document.getElementById("strengthMsg");
+    const requirements = {
+      length: document.getElementById("length"),
+      lower: document.getElementById("lower"),
+      upper: document.getElementById("upper"),
+      number: document.getElementById("number"),
+      special: document.getElementById("special")
+    };
+
+    password.addEventListener("input", () => {
+      const val = password.value;
+      let strength = 0;
+
+      // Check length
+      if (val.length >= 8) {
+        requirements.length.classList.replace("invalid", "valid");
+        strength++;
+      } else {
+        requirements.length.classList.replace("valid", "invalid");
+      }
+
+      // Check lowercase
+      if (/[a-z]/.test(val)) {
+        requirements.lower.classList.replace("invalid", "valid");
+        strength++;
+      } else {
+        requirements.lower.classList.replace("valid", "invalid");
+      }
+
+      // Check uppercase
+      if (/[A-Z]/.test(val)) {
+        requirements.upper.classList.replace("invalid", "valid");
+        strength++;
+      } else {
+        requirements.upper.classList.replace("valid", "invalid");
+      }
+
+      // Check number
+      if (/[0-9]/.test(val)) {
+        requirements.number.classList.replace("invalid", "valid");
+        strength++;
+      } else {
+        requirements.number.classList.replace("valid", "invalid");
+      }
+
+      // Check special char
+      if (/[^A-Za-z0-9]/.test(val)) {
+        requirements.special.classList.replace("invalid", "valid");
+        strength++;
+      } else {
+        requirements.special.classList.replace("valid", "invalid");
+      }
+
+      // Strength Message
+      if (val.length === 0) {
+        strengthMsg.textContent = "Enter a password";
+        strengthMsg.style.color = "black";
+      } else if (strength <= 2) {
+        strengthMsg.textContent = "Weak Password ❌";
+        strengthMsg.style.color = "red";
+      } else if (strength === 3 || strength === 4) {
+        strengthMsg.textContent = "Medium Password ⚠️";
+        strengthMsg.style.color = "orange";
+      } else if (strength === 5) {
+        strengthMsg.textContent = "Strong Password ✅";
+        strengthMsg.style.color = "green";
+      }
+    });
+
+    // Toggle show/hide password
+    function togglePassword() {
+      if (password.type === "password") {
+        password.type = "text";
+      } else {
+        password.type = "password";
+      }
+    }
+  </script>
+</body>
+</html>
