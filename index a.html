@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handwritten Notes to Digital Converter</title>
+  <link rel="stylesheet" href="style a.css">
+  <!-- Tesseract.js for OCR -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.1.4/dist/tesseract.min.js"></script>
+  <!-- jsPDF for PDF download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 Handwritten Notes to Digital Converter</h1>
+
+    <!-- Upload Section -->
+    <div class="upload-box" id="dropArea">
+      <p>Drag & Drop or Select an Image</p>
+      <input type="file" id="imageInput" accept="image/*">
+      <div id="imagePreview"></div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button id="convertBtn">Convert to Text</button>
+      <button id="copyBtn">Copy Text</button>
+      <button id="downloadTxtBtn">Download TXT</button>
+      <button id="downloadPdfBtn">Download PDF</button>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loading" style="display: none;">⏳ Processing...</div>
+
+    <!-- Output Section -->
+    <textarea id="outputText" placeholder="Extracted text will appear here..."></textarea>
+  </div>
+
+  <script src="script a.js"></script>
+</body>
+</html>
